@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 
@@ -8,7 +9,7 @@ function Login() {
 
   const handleLogin = () => {
     console.log("Login attempt:", { email, password });
-    // Add your login logic here
+    // Add login logic here
   };
 
   return (
@@ -34,7 +35,11 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-
+          <Link href="/auth/forgot-password">
+            <Button className="underline text-xs text-center">
+              forget passowrd
+            </Button>
+          </Link>
           <Button onClick={handleLogin}>Login</Button>
         </div>
       </div>
