@@ -28,9 +28,8 @@ export default function CreateExam() {
             <div>
               <label className="block text-sm mb-1">date</label>
               <div className="grid grid-cols-3 gap-2">
-                <input type="text" className="border px-3 py-2 rounded" placeholder="DD" />
-                <input type="text" className="border px-3 py-2 rounded" placeholder="MM" />
-                <input type="text" className="border px-3 py-2 rounded" placeholder="YYYY" />
+                <input type="date" className="border px-3 py-2 rounded"/>
+                
               </div>
             </div>
 

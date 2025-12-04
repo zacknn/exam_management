@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
-import { 
-  LayoutDashboard, 
-  Users, 
-  ShoppingCart, 
-  BookOpen, 
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Users,
+  ShoppingCart,
+  BookOpen,
   LogOut,
   Menu,
-  X 
-} from 'lucide-react';
+  X,
+} from "lucide-react";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const menuItems = [
-    { Icon: LayoutDashboard, label: 'Dashboard', active: true },
-    { Icon: Users, label: 'Users' },
-    { Icon: ShoppingCart, label: 'Sales' },
-    { Icon: BookOpen, label: 'Matières' },
+    { Icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
+    { Icon: Users, label: "Users", href: "/dashboard/users" },
+    { Icon: ShoppingCart, label: "Sales", href: "/dashboard/Salles" },
+    { Icon: BookOpen, label: "Matières", href: "/dashboard/Groups" },
   ];
 
   return (
@@ -32,7 +35,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         className={`fixed left-0 top-0 h-full bg-white shadow-2xl transition-all duration-500 ease-in-out z-40 flex flex-col ${
-          isOpen ? 'w-64' : 'w-20'
+          isOpen ? "w-64" : "w-20"
         } pt-20 lg:pt-6`}
       >
         {/* Close button inside (mobile only) */}
@@ -49,26 +52,41 @@ const Sidebar = () => {
         <nav className="flex-1 px-4 space-y-2 mt-4">
           {menuItems.map((item, index) => {
             const Icon = item.Icon;
+            const isActive =
+              location.pathname === item.href ||
+              (item.href !== "/" &&
+                location.pathname.startsWith(item.href + "/")) ||
+              location.pathname.startsWith(item.href);
+
             return (
               <button
                 key={index}
+                onClick={() => {
+                  navigate(item.href);
+                  setIsOpen(false);
+                }}
                 className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 group
-                  ${item.active 
-                    ? 'bg-green-50 text-green-600' 
-                    : 'text-gray-600 hover:bg-green-50 hover:text-green-600'
+                  ${
+                    isActive
+                      ? "bg-green-50 text-green-600"
+                      : "text-gray-600 hover:bg-green-50 hover:text-green-600"
                   } hover:translate-x-1`}
               >
-                <Icon className={`w-6 h-6 flex-shrink-0 ${item.active ? 'text-green-600' : ''}`} />
-                
+                <Icon
+                  className={`w-6 h-6 shrink-0 ${
+                    isActive ? "text-green-600" : ""
+                  }`}
+                />
+
                 <span
                   className={`font-medium transition-all duration-500 whitespace-nowrap overflow-hidden
-                    ${isOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0'}`}
+                    ${isOpen ? "opacity-100 w-auto" : "opacity-0 w-0"}`}
                 >
                   {item.label}
                 </span>
 
                 {/* Active dot */}
-                {item.active && isOpen && (
+                {isActive && isOpen && (
                   <div className="ml-auto w-2 h-2 bg-green-600 rounded-full" />
                 )}
               </button>
@@ -79,10 +97,10 @@ const Sidebar = () => {
         {/* Logout */}
         <div className="px-4 pb-8">
           <button className="w-full flex items-center gap-4 px-4 py-4 rounded-xl text-red-600 hover:bg-red-50 hover:text-red-700 transition-all duration-300 group hover:translate-x-1">
-            <LogOut className="w-6 h-6 flex-shrink-0" />
+            <LogOut className="w-6 h-6 shrink-0" />
             <span
               className={`font-medium transition-all duration-500 whitespace-nowrap overflow-hidden
-                ${isOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0'}`}
+                ${isOpen ? "opacity-100 w-auto" : "opacity-0 w-0"}`}
             >
               Logout
             </span>
