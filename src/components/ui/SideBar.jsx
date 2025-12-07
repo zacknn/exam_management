@@ -4,8 +4,8 @@ import {
   LayoutDashboard,
   Users,
   CalendarPlus,
- Building,
- UserCheck,   
+  Building,
+  UserCheck,
   BookOpen,
   LogOut,
   Menu,
@@ -33,7 +33,17 @@ const Sidebar = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed top-4 left-4 z-50 p-3 bg-white rounded-lg shadow-lg hover:bg-gray-100 transition lg:hidden"
       >
-        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        {isOpen ? (
+          X ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <div className="w-6 h-6" />
+          )
+        ) : Menu ? (
+          <Menu className="w-6 h-6" />
+        ) : (
+          <div className="w-6 h-6" />
+        )}
       </button>
 
       {/* Sidebar */}
@@ -56,6 +66,12 @@ const Sidebar = () => {
         <nav className="flex-1 px-4 space-y-2 mt-4">
           {menuItems.map((item, index) => {
             const Icon = item.Icon;
+            if (!Icon) {
+              // Help debugging missing icon names which crash React at runtime
+              // (Element type is invalid if an imported icon is undefined)
+              // eslint-disable-next-line no-console
+              console.warn(`Missing icon for menu item: ${item.label}`);
+            }
             const isActive =
               location.pathname === item.href ||
               (item.href !== "/" &&
@@ -76,11 +92,15 @@ const Sidebar = () => {
                       : "text-gray-600 hover:bg-green-50 hover:text-green-600"
                   } hover:translate-x-1`}
               >
-                <Icon
-                  className={`w-6 h-6 shrink-0 ${
-                    isActive ? "text-green-600" : ""
-                  }`}
-                />
+                {Icon ? (
+                  <Icon
+                    className={`w-6 h-6 shrink-0 ${
+                      isActive ? "text-green-600" : ""
+                    }`}
+                  />
+                ) : (
+                  <div className="w-6 h-6 shrink-0" />
+                )}
 
                 <span
                   className={`font-medium transition-all duration-500 whitespace-nowrap overflow-hidden

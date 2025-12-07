@@ -1,17 +1,11 @@
 import React from 'react'
-import Sidebar from '../components/ui/SideBar'
-import Navbar from '../components/ui/NavBar'
+
 import Table from '../components/ui/dashboard_ui/Table'
 import DashboardLayaout from '../layouts/DashboardLayaout'
 import { stats } from '../constant/fakeData'
 function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Sidebar - always visible */}
-      <DashboardLayaout/>
-      {/* Navbar - starts after sidebar */}
-      
-      {/* Main Content - offset by sidebar */}
       <main className="pt-20 pl-20 transition-all duration-500">
         <div className="p-8">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
