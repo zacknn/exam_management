@@ -3,7 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
-  ShoppingCart,
+  CalendarPlus,
+ Building,
+ UserCheck,   
   BookOpen,
   LogOut,
   Menu,
@@ -18,8 +20,10 @@ const Sidebar = () => {
   const menuItems = [
     { Icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { Icon: Users, label: "Users", href: "/dashboard/users" },
-    { Icon: ShoppingCart, label: "Sales", href: "/dashboard/Salles" },
+    { Icon: CalendarPlus, label: "Examens", href: "/dashboard/Examens" },
+    { Icon: Building, label: "Sales", href: "/dashboard/Salles" },
     { Icon: BookOpen, label: "Matières", href: "/dashboard/Groups" },
+    { Icon: UserCheck, label: "Surveillants", href: "/dashboard/Surveillants" },
   ];
 
   return (
