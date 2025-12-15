@@ -1,4 +1,4 @@
-```markdown
+
 # Exam Management System
 
 A modern, full-stack **Exam Management System** built with **React.js** (frontend) and **Laravel** (backend). This application helps universities or educational institutions manage groups, modules (courses), students, teachers, exam sessions, rooms, exams scheduling, and surveillance assignments.
@@ -54,29 +54,6 @@ A modern, full-stack **Exam Management System** built with **React.js** (fronten
 ### Database
 - MySQL / PostgreSQL (via Laravel migrations)
 
-## 📂 Project Structure
-
-```
-exam-management/
-├── frontend/                  # React application
-│   ├── src/
-│   │   ├── components/        # Reusable UI components
-│   │   ├── pages/             # Dashboard pages (Groups, Modules, Exams...)
-│   │   ├── resources/         # MirageJS resources & actions
-│   │   ├── lib/               # API actions
-│   │   ├── data.js            # Mock data (users, groups, modules, etc.)
-│   │   ├── server.js          # MirageJS server setup
-│   │   └── App.jsx
-│   └── ...
-│
-├── backend/                   # Laravel application (to be created)
-│   ├── app/
-│   ├── routes/api.php
-│   ├── database/migrations/
-│   └── ...
-│
-└── README.md
-```
 
 ## ⚙️ Setup & Installation
 
@@ -142,6 +119,3 @@ Feel free to fork and submit pull requests! Any improvements to UI, features, or
 This project is open-source and available under the [MIT License](LICENSE).
 
 ---
-
-**Made with ❤️ for educational institutions**
-```
