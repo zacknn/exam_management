@@ -24,6 +24,8 @@ const Sidebar = () => {
     { Icon: Building, label: "Sales", href: "/dashboard/Salles" },
     { Icon: BookOpen, label: "Matières", href: "/dashboard/Groups" },
     { Icon: UserCheck, label: "Surveillants", href: "/dashboard/Surveillants" },
+    { Icon: CalendarPlus, label: "LanneeAcadimic", href: "/dashboard/LanneeAcadimic" },
+    { Icon: CalendarPlus, label: "Semestres", href: "/dashboard/Semestres" },
   ];
 
   return (

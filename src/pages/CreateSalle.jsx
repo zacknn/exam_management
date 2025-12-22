@@ -40,7 +40,7 @@ export default function CreateSalle({ onCancel }) {
       </div>
 
       <div className="flex gap-4 mt-6">
-        <button className="px-6 py-2 bg-purple-600 text-white rounded-md">Créer</button>
+        <button className="px-6 py-3 bg-blue-600 text-white rounded-xl">Créer</button>
         <button onClick={onCancel} className="px-6 py-2 bg-gray-300 rounded-md">
           Annuler
         </button>

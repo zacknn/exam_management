@@ -14,6 +14,9 @@ import Surveillants from "../pages/Surveillants";
 import Examens from "../pages/Examens";
 import TeachersPage from "../pages/users/TeacherPage";
 import CreateExam from "../pages/CreateExam";
+import LanneeAcadimic from "../pages/LanneeAcadimic";
+import Semestres from "../pages/Semestres";
+
 function AppRoutes() {
   return (
     <Routes>
@@ -36,8 +39,8 @@ function AppRoutes() {
         <Route path="Surveillants" element={<Surveillants />} />
         <Route path="users" element={<TeachersPage />} />
         <Route path="CreateExam" element={<CreateExam />} />
-        
-  
+        <Route path="LanneeAcadimic" element={<LanneeAcadimic />} />
+        <Route path="Semestres" element={<Semestres/>} />   
         
       </Route>
 

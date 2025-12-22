@@ -1,177 +1,191 @@
 import React, { useState } from "react";
-import { CalendarClock, Plus, Edit, Trash2 } from "lucide-react";
+import { CalendarClock, Edit, Trash2 } from "lucide-react";
+import { DataTable } from "../components/DataTable";
 
 export default function Examens() {
   const [showForm, setShowForm] = useState(false);
-
-  const [examens] = useState([
+  const [examens, setExamens] = useState([
     {
       id: 1,
       sujet: "Mathématiques L1",
-      date: "10 Jan 2025",
+      date: "2025-01-10",
       heure: "09:00",
       duree: "2h",
-      capacite: "80 places",
+      capacite: 80,
       statut: "Validé",
+      type: "Partiel",
+      salle: "A101"
     },
     {
       id: 2,
       sujet: "Physique L1",
-      date: "12 Jan 2025",
+      date: "2025-01-12",
       heure: "14:00",
       duree: "3h",
-      capacite: "120 places",
+      capacite: 120,
       statut: "En attente",
+      type: "Contrôle",
+      salle: "B202"
     },
     {
       id: 3,
       sujet: "Chimie L2",
-      date: "15 Jan 2025",
+      date: "2025-01-15",
       heure: "10:00",
       duree: "2h30",
-      capacite: "60 places",
+      capacite: 60,
       statut: "Planifié",
+      type: "Rattrapage",
+      salle: "C303"
     },
   ]);
 
-  return (
-    <div className="p-8 bg-white min-h-screen">
+  const columns = [
+    { 
+      key: "sujet", 
+      label: "Sujet", 
+      sortable: true,
+      filterable: true 
+    },
+    { 
+      key: "date", 
+      label: "Date", 
+      sortable: true,
+      filterable: true 
+    },
+    { 
+      key: "heure", 
+      label: "Heure", 
+      sortable: true 
+    },
+    { 
+      key: "duree", 
+      label: "Durée", 
+      sortable: true 
+    },
+    { 
+      key: "capacite", 
+      label: "Capacité", 
+      sortable: true 
+    },
+    { 
+      key: "type", 
+      label: "Type", 
+      sortable: true,
+      filterable: true 
+    },
+    { 
+      key: "salle", 
+      label: "Salle", 
+      sortable: true,
+      filterable: true 
+    },
+    { 
+      key: "statut", 
+      label: "Statut", 
+      sortable: true,
+      filterable: true,
+      render: (item) => (
+        <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+          item.statut === "Validé"
+            ? "bg-green-100 text-green-800"
+            : item.statut === "En attente"
+            ? "bg-yellow-100 text-yellow-800"
+            : "bg-blue-100 text-blue-800"
+        }`}>
+          {item.statut}
+        </span>
+      )
+    }
+  ];
 
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-10">
+  const handleDelete = (id) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cet examen ?")) {
+      setExamens(examens.filter(exam => exam.id !== id));
+    }
+  };
+
+  const handleEdit = (examen) => {
+    // Logique d'édition
+    console.log("Éditer:", examen);
+  };
+
+  const actions = (item) => (
+    <div className="flex gap-2">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleEdit(item);
+        }}
+        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition duration-300"
+        title="Modifier"
+      >
+        <Edit className="w-4 h-4" />
+      </button>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleDelete(item.id);
+        }}
+        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition duration-300"
+        title="Supprimer"
+      >
+        <Trash2 className="w-4 h-4" />
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-[#ebedf3] p-6">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-4xl font-bold text-gray-900 flex items-center gap-3">
-            <CalendarClock className="w-9 h-9 text-blue-600" />
+          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+            <CalendarClock className="w-8 h-8 text-blue-600" />
             Planification des Examens
           </h1>
-          <p className="text-gray-500 mt-2">Créer et gérer les examens</p>
+          <p className="text-gray-600">Créer et gérer les examens</p>
         </div>
-
-        <button
-          onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition"
-        >
-          <Plus className="w-5 h-5" />
-          Ajouter un examen
-        </button>
       </div>
 
-      {/* FORMULAIRE (apparait dans la même page) */}
+      {/* Formulaire modal */}
       {showForm && (
-        <div className="bg-white border rounded-2xl shadow p-8 mb-10">
-
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">
-            Ajouter un nouvel examen
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Sujet</label>
-              <input
-                type="text"
-                placeholder="Ex: Mathématiques L1"
-                className="w-full p-3 border rounded-xl bg-gray-100"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Date</label>
-              <input
-                type="date"
-                className="w-full p-3 border rounded-xl bg-gray-100"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Heure</label>
-              <input
-                type="time"
-                className="w-full p-3 border rounded-xl bg-gray-100"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Durée</label>
-              <input
-                type="text"
-                placeholder="Ex: 2h30"
-                className="w-full p-3 border rounded-xl bg-gray-100"
-              />
-            </div>
-
-          </div>
-
-          <div className="flex gap-4 mt-8">
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-xl">
-              Créer
-            </button>
-
-            <button
-              onClick={() => setShowForm(false)}
-              className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl"
-            >
-              Annuler
-            </button>
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 w-full max-w-2xl">
+            <h2 className="text-xl font-semibold mb-6">Ajouter un nouvel examen</h2>
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Formulaire inchangé */}
+              <div className="md:col-span-2 flex gap-4">
+                <button className="px-6 py-3 bg-blue-600 text-white rounded-xl">
+                  Créer
+                </button>
+                <button
+                  onClick={() => setShowForm(false)}
+                  className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl"
+                >
+                  Annuler
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
 
-      {/* TABLEAU */}
-      <div className="bg-white border rounded-2xl shadow p-8">
-
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">
-          Liste des Examens
-        </h2>
-
-        <table className="w-full text-left">
-          <thead>
-            <tr className="text-gray-600 border-b">
-              <th className="pb-4">Sujet</th>
-              <th className="pb-4">Date</th>
-              <th className="pb-4">Heure</th>
-              <th className="pb-4">Durée</th>
-              <th className="pb-4">Capacité</th>
-              <th className="pb-4">Statut</th>
-              <th className="pb-4">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {examens.map((exam) => (
-              <tr key={exam.id} className="border-b">
-                <td className="py-4">{exam.sujet}</td>
-                <td>{exam.date}</td>
-                <td>{exam.heure}</td>
-                <td>{exam.duree}</td>
-                <td>{exam.capacite}</td>
-
-                <td>
-                  <span
-                    className={`px-3 py-1 rounded-xl text-sm ${
-                      exam.statut === "Validé"
-                        ? "bg-green-100 text-green-600"
-                        : exam.statut === "En attente"
-                        ? "bg-yellow-100 text-yellow-600"
-                        : "bg-blue-100 text-blue-600"
-                    }`}
-                  >
-                    {exam.statut}
-                  </span>
-                </td>
-
-                <td className="flex gap-4">
-                  <Edit className="text-blue-600 cursor-pointer" />
-                  <Trash2 className="text-red-600 cursor-pointer" />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-
-        </table>
-
-      </div>
-
+      {/* DataTable avec filtres et pagination */}
+      <DataTable
+        data={examens}
+        columns={columns}
+        title="Liste des Examens"
+        description={`${examens.length} examen(s) planifié(s)`}
+        searchable={true}
+        filterable={true}
+        pagination={true}
+        itemsPerPageOptions={[5, 10, 25]}
+        onRowClick={(examen) => console.log("Examen sélectionné:", examen)}
+        actions={actions}
+        onAdd={() => setShowForm(true)}
+        addButtonText="Ajouter un examen"
+      />
     </div>
   );
 }
