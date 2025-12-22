@@ -3,9 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import ExamLanding from "../pages/ExamLanding";
 import Login from "../pages/Login";
 import ForgotPassword from "../pages/ForgotPassword";
-
+import AjouterUnModule from "../pages/users/AjouterUnModule";
 import DashboardLayout from "../layouts/DashboardLayaout"; 
-
+import AjouterUnGroupe from "../pages/users/AjouterUnGroupe";
 import Dashboard from "../pages/Dashboard";
 import GroupePage from "../pages/users/GroupePage";
 import GroupeDetailPage from "../pages/users/GroupeDetailPage";
@@ -14,9 +14,7 @@ import Surveillants from "../pages/Surveillants";
 import Examens from "../pages/Examens";
 import TeachersPage from "../pages/users/TeacherPage";
 import CreateExam from "../pages/CreateExam";
-import LanneeAcadimic from "../pages/LanneeAcadimic";
-import Semestres from "../pages/Semestres";
-
+import ModulesPage from "../pages/ModulePages";
 function AppRoutes() {
   return (
     <Routes>
@@ -34,13 +32,16 @@ function AppRoutes() {
         {/* Nested dashboard pages */}
         <Route path="Groups" element={<GroupePage />} />
         <Route path="Groups/:groupId" element={<GroupeDetailPage />} />
+        <Route path="AjouterUnGroupe" element={<AjouterUnGroupe />} />
         <Route path="Salles" element={<Salles />} />
         <Route path="Examens" element={<Examens />} />
         <Route path="Surveillants" element={<Surveillants />} />
         <Route path="users" element={<TeachersPage />} />
         <Route path="CreateExam" element={<CreateExam />} />
-        <Route path="LanneeAcadimic" element={<LanneeAcadimic />} />
-        <Route path="Semestres" element={<Semestres/>} />   
+        <Route path="Modules" element={<ModulesPage />} />
+        <Route path="AjouterUnModule" element={<AjouterUnModule />} />
+        
+  
         
       </Route>
 
